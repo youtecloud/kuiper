@@ -4,8 +4,6 @@ import (
 	"archive/zip"
 	"errors"
 	"fmt"
-	"github.com/emqx/kuiper/common"
-	"github.com/emqx/kuiper/xstream/api"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -20,6 +18,9 @@ import (
 	"sync"
 	"time"
 	"unicode"
+
+	"github.com/emqx/kuiper/common"
+	"github.com/emqx/kuiper/xstream/api"
 )
 
 type Plugin struct {
@@ -126,6 +127,11 @@ func getPlugin(t string, pt PluginType) (plugin.Symbol, error) {
 }
 
 func GetSource(t string) (api.Source, error) {
+	// from local map
+	if p, ok := registeredSources[t]; ok {
+		return p, nil
+	}
+
 	nf, err := getPlugin(t, SOURCE)
 	if err != nil {
 		return nil, err
@@ -143,6 +149,11 @@ func GetSource(t string) (api.Source, error) {
 }
 
 func GetSink(t string) (api.Sink, error) {
+	// from local map
+	if p, ok := registeredSinks[t]; ok {
+		return p, nil
+	}
+
 	nf, err := getPlugin(t, SINK)
 	if err != nil {
 		return nil, err
@@ -160,6 +171,11 @@ func GetSink(t string) (api.Sink, error) {
 }
 
 func GetFunction(t string) (api.Function, error) {
+	// from local map
+	if p, ok := registeredFunctions[t]; ok {
+		return p, nil
+	}
+
 	nf, err := getPlugin(t, FUNCTION)
 	if err != nil {
 		return nil, err
