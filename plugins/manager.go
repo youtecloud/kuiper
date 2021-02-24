@@ -22,6 +22,7 @@ import (
 	"unicode"
 
 	"github.com/emqx/kuiper/common"
+	"github.com/emqx/kuiper/common/kv"
 	"github.com/emqx/kuiper/xstream/api"
 )
 
@@ -297,7 +298,7 @@ type Manager struct {
 	pluginDir string
 	etcDir    string
 	registry  *Registry
-	db        common.KeyValue
+	db        kv.KeyValue
 }
 
 func NewPluginManager() (*Manager, error) {
@@ -318,7 +319,7 @@ func NewPluginManager() (*Manager, error) {
 			outerErr = fmt.Errorf("cannot find db folder: %s", err)
 			return
 		}
-		db := common.GetSqliteKVStore(path.Join(dbDir, "pluginFuncs"))
+		db := kv.GetDefaultKVStore(path.Join(dbDir, "pluginFuncs"))
 		err = db.Open()
 		if err != nil {
 			outerErr = fmt.Errorf("error when opening db: %v.", err)
