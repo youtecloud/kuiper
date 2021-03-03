@@ -31,15 +31,15 @@ The following 3 parameters are required for creating a rule.
 | actions        | false    | An array of sink actions          |
 | options        | true     | A map of options                  |
 
-## id
+### id
 
 The identification of the rule. The rule name cannot be duplicated in the same Kuiper instance.
 
-## sql
+### sql
 
 The sql query to run for the rule.
 
-## options
+## Options
 
 The current options includes:
 
@@ -68,8 +68,12 @@ The rule options can be defined globally in `etc/kuiper.yaml` under the `rules` 
 - Sources can be customized, see [extension](../extension/overview.md) for more detailed info.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 ### sinks/actions
+=======
+## Sinks/Actions
+>>>>>>> fix(doc): update header levels for rules/overview (#734)
 
 =======
 
